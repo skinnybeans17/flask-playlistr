@@ -7,7 +7,7 @@ host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Playlister')
 client = MongoClient(host=host)
 db = client.get_default_database()
 playlists = db.playlists
-comments = db.comments
+#comments = db.comments
 
 app = Flask(__name__)
 def video_url_creator(id_lst):
@@ -50,7 +50,7 @@ def playlists_new():
 def playlists_show(playlist_id):
     """Show a single playlist."""
     playlist = playlists.find_one({'_id': ObjectId(playlist_id)})
-    playlist_comments = comments.find({'playlist_id': ObjectId(playlist_id)})
+    #playlist_comments = comments.find({'playlist_id': ObjectId(playlist_id)})
     return render_template('playlists_show.html', playlist=playlist, comments=playlist_comments)
 
 @app.route('/playlists/<playlist_id>/edit')
