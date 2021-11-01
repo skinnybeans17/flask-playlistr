@@ -21,7 +21,7 @@ def video_url_creator(id_lst):
 @app.route('/')
 def index():
     """Return homepage."""
-    return render_template('home.html')
+    return render_template('index.html')
 
 @app.route('/')
 def playlists_index():
