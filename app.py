@@ -14,7 +14,7 @@ comments = db.comments
 @app.route('/')
 def index():
     """Return homepage."""
-    return render_template('home.html')
+    return render_template('index.html')
 
 @app.route('/')
 def playlists_index():
@@ -37,10 +37,9 @@ def playlists_submit():
         'title': request.form.get('title'),
         'description': request.form.get('description'),
         'videos': videos,
-        'video_ids': video_ids
+        'video_ids': video_ids,
     }
-    print(playlist)
-    playlist_id = playlists.insert_one(playlist).inserted_id
+    playlists.insert_one(playlist)
     return redirect(url_for('playlists_index'))
 
 @app.route('/playlists/new')
