@@ -3,13 +3,14 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 import os
 
+app = Flask(__name__)
+
 host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Playlister')
 client = MongoClient(host=host)
 db = client.get_default_database()
 playlists = db.playlists
 comments = db.comments
 
-app = Flask(__name__)
 def video_url_creator(id_lst):
     videos = []
     for vid_id in id_lst:
