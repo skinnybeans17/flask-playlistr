@@ -10,6 +10,12 @@ playlists = db.playlists
 comments = db.comments
 
 app = Flask(__name__)
+def video_url_creator(id_lst):
+    videos = []
+    for vid_id in id_lst:
+        video = 'https://youtube.com/embed/' + vid_id
+        videos.append(video)
+    return videos
 
 @app.route('/')
 def index():
@@ -20,13 +26,6 @@ def index():
 def playlists_index():
     """Show all playlists."""
     return render_template('playlists_index.html', playlists=playlists.find())
-
-def video_url_creator(id_lst):
-    videos = []
-    for vid_id in id_lst:
-        video = 'https://youtube.com/embed/' + vid_id
-        videos.append(video)
-    return videos
 
 @app.route('/playlists', methods=['POST'])
 def playlists_submit():
