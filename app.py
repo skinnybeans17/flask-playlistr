@@ -28,6 +28,11 @@ def playlists_index():
     """Show all playlists."""
     return render_template('playlists_index.html', playlists=playlists.find())
 
+@app.route('/playlists/new')
+def playlists_new():
+    """Create a new playlist."""
+    return render_template('playlists_new.html', playlist={}, title='New Playlist')
+
 @app.route('/playlists', methods=['POST'])
 def playlists_submit():
     """Submit a new playlist."""
@@ -41,11 +46,6 @@ def playlists_submit():
     }
     playlists.insert_one(playlist)
     return redirect(url_for('playlists_index'))
-
-@app.route('/playlists/new')
-def playlists_new():
-    """Create a new playlist."""
-    return render_template('playlists_new.html', playlist={}, title='New Playlist')
 
 @app.route('/playlists/<playlist_id>')
 def playlists_show(playlist_id):
