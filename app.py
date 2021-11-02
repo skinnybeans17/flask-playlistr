@@ -20,6 +20,11 @@ def video_url_creator(id_lst):
     return videos
 
 @app.route('/')
+ def index():
+     """Return homepage."""
+     return render_template('index.html')
+
+@app.route('/')
 def playlists_index():
     """Show all playlists."""
     return render_template('playlists_index.html', playlists=playlists.find())
