@@ -21,7 +21,7 @@ def video_url_creator(id_lst):
 
 @app.route('/')
 def index():
-    return redirect('templates/index.html')
+    return redirect('index.html')
 
 @app.route('/')
 def playlists_index():
