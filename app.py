@@ -12,6 +12,10 @@ comments = db.comments
 
 app = Flask(__name__)
 
+@app.route('/')
+def index():
+    return redirect('/playlists')
+
 def video_url_creator(id_list):
   videos = []
   for vid_id in id_list:
