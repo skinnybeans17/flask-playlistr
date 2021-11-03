@@ -12,16 +12,16 @@ db = client.get_default_database()
 playlists = db.playlists
 comments = db.comments
 
-@app.route('/')
-def index():
-    return render_template('home.html')
-
 def video_url_creator(id_list):
   videos = []
   for vid_id in id_list:
     video = 'https://youtube.com/embed/' + vid_id
     videos.append(video)
   return videos
+
+@app.route('/')
+def index():
+    return render_template('home.html')
 
 @app.route('/')
 def playlists_index():
