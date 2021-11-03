@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return redirect('/playlists')
+    return redirect('home.html')
 
 def video_url_creator(id_list):
   videos = []
