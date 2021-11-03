@@ -1,17 +1,16 @@
-<!-- templates/playlists_index.html -->
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Playlists</h1>
+  <h1>Playlists</h1>
 
-    <a href="/playlists/new">New Playlist</a>
+  <a href="/playlists/new">New Playlist</a>
 
-<div class='row'>
+  <div class="row">
     {% for playlist in playlists %}
-        <div class='col-md-3'>
-            <h2><a href='/playlists/{{ playlist._id }}'>{{ playlist.title }}</a></h2>
-            <small>{{ playlist.description }}</small>
-        </div>
+      <div class="col-md-3 card">
+        <h2 class="card-title"><a href='/playlists/{{ playlist._id }}'>{{ playlist.title }}</a></h2>
+        <small class="card-text">{{ playlist.description }}</small>
+      </div>
     {% endfor %}
-</div>
+  </div>
 {% endblock %}
