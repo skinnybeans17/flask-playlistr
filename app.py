@@ -41,10 +41,10 @@ def playlists_submit():
   video_ids = request.form.get('video_ids').split()
   videos = video_url_creator(video_ids)
   playlist = {
-    'title': request.form.get('playlist-title'),
+    'title': request.form.get('title'),
     'description': request.form.get('description'),
     'videos': videos,
-    'video_ids': request.form.get('playlist-video-ids')
+    'video_ids': video_ids
   }
   playlists.insert_one(playlist)
   return redirect(url_for('playlists_index'))
