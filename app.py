@@ -6,9 +6,9 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Playlister')
+host = os.environ.get("DB_URL")
 client = MongoClient(host=host)
-db = client.get_default_database()
+db = client.get_database("playlister")
 playlists = db.playlists
 comments = db.comments
 
