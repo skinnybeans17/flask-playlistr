@@ -12,10 +12,6 @@ db = client.get_database("playlister")
 playlists = db.playlists
 comments = db.comments
 
-@app.route('/')
-def index():
-    return render_template('home.html')
-
 @app.route('/playlists', methods=['POST'])
 def video_url_creator(id_list):
   videos = []
@@ -24,7 +20,7 @@ def video_url_creator(id_list):
     videos.append(video)
   return videos
 
-@app.route('/playlists', methods=['GET'])
+@app.route('/')
 def playlists_index():
   """ Show all playlists """
   return render_template('playlists_index.html', playlists=playlists.find())
