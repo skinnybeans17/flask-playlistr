@@ -72,7 +72,7 @@ def playlists_update(playlist_id):
     'title': request.form.get('playlist-title'),
     'description': request.form.get('description'),
     'videos': videos,
-    'video_ids': request.form.get('playlist-video-ids')
+    'video_ids': video_ids
   }
   # set the former playlist to the new one we just updated/edited
   playlists.update_one(
