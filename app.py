@@ -12,7 +12,6 @@ db = client.get_database("playlister")
 playlists = db.playlists
 comments = db.comments
 
-@app.route('/playlists', methods=['POST'])
 def video_url_creator(id_list):
   videos = []
   for vid_id in id_list:
@@ -21,10 +20,6 @@ def video_url_creator(id_list):
   return videos
 
 @app.route('/')
-def index():
-    return render_template('home.html')
-
-@app.route('/playlists')
 def playlists_index():
   """ Show all playlists """
   return render_template('playlists_index.html', playlists=playlists.find())
@@ -67,18 +62,15 @@ def playlists_update(playlist_id):
   """ Submit an edited playlist """
   video_ids = request.form.get('video_ids').split()
   videos = video_url_creator(video_ids)
-  # create our updated playlist
   updated_playlist = {
-    'title': request.form.get('playlist-title'),
+    'title': request.form.get('title'),
     'description': request.form.get('description'),
     'videos': videos,
-    'video_ids': video_ids
+    'video_ids': video_ids,
   }
-  # set the former playlist to the new one we just updated/edited
   playlists.update_one(
     {'_id': ObjectId(playlist_id)},
     {'$set': updated_playlist})
-  # take us ack to the playlist's show page
   return redirect(url_for('playlists_show', playlist_id=playlist_id))
 
 @app.route('/playlists/<playlist_id>/delete', methods=['POST'])
@@ -90,17 +82,20 @@ def playlists_delete(playlist_id):
 @app.route('/playlists/comments', methods=['POST'])
 def comments_new():
   """ Submit a new comment """
+  playlist_id = request.form.get("playlist_id")
   comment = {
-    'playlist_id': request.form.get('playlist_id'),
+    'playlist_id': playlist_id,
     'title': request.form.get('title'),
     'content': request.form.get('content'),
   }
   comments.insert_one(comment)
-  return redirect(url_for('playlists_show', playlist_id=request.form.get('playlist_id')))
+  return redirect(url_for('playlists_show', playlist_id=playlist_id))
 
 @app.route('/playlists/<playlist_id>/comments/<comment_id>/delete')
 def delete_comment(playlist_id, comment_id):
   """ Delete a comment """
+  comment = comments.find_one({'_id': ObjectId(comment_id)})
+  playlist_id = comment['playlist_id']
   comments.delete_one({'_id': ObjectId(comment_id)})
   return redirect(url_for('playlists_show', playlist_id=playlist_id))
 
